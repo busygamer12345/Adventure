@@ -1,0 +1,15 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    
+    name: Build and see if it builds
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Compile
+      run: |
+        clang++ adventure.cpp -o adventure

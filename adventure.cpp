@@ -377,7 +377,6 @@ struct coordinates{
 } C;
 
 
-
 bool NIGHT;
 int THOUR; // DAY/NIGHT CYCLER
 int TICKS; // TOTAL NUMBER OF TICKS
@@ -439,7 +438,7 @@ str preposition(bool gen){
     return gen ? strings["gender:male:prep"] : strings["gender:female:prep"];
 }
 void pick_stats(){
-    CHDATA["GENDER"] = sandget("GENDER (M or F):"); // No use as of now
+    CHDATA["GENDER"] = sandget("GENDER (M or F):"); // A lot of uses
     CHDATA["STR"] = sandget("STRENGTH:"); // Attack
     CHDATA["END"] = sandget("ENDURANCE:"); // Defense?
     CHDATA["LUCK"] = sandget("LUCK:"); // Worldgen??
@@ -735,7 +734,7 @@ void look(bool minified = false){
     if(!minified){
         result+= "HP: "+(itos(gval("HEALTH")));
         result+= " HAPPY: "+CHDATA["HAPPINESS"]+"\n";
-        result+= "X: "+itos(x)+" Y:"+itos(y)+"\n";
+        result+= "X: "+itos(x)+" Y:"+itos(y)+" COIN:"+CHDATA["COIN"]+"\n";
     }
     bool npcexist = (bool) WCDATA[x][y].size();
     if (npcexist){
@@ -1734,6 +1733,7 @@ void pushname(str name,str gender){
         FEMALE_NAMES.push_back(name);
     }
 }
+
 /**         COMMAND PARSER
  * 
  * 
@@ -1741,7 +1741,7 @@ void pushname(str name,str gender){
  * **/
 
 
-void cmd_parser(str cmdn){
+void cmd_parser(str cmdn){ // command parser
     vector<str> args = split(cmdn," ");
     if(args.size() == 0){
         return;
@@ -1827,7 +1827,7 @@ void cmd_parser(str cmdn){
         trade();
     }
     
-    else {
+    else { // debug commands
         if(cmd == "mkworld"){
             mkworld();
         }else if(cmd == "tp"){
